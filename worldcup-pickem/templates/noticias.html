@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+{% if error %}
+  <div class="alerta alerta-erro">Erro ao carregar notícias: {{ error }}</div>
+{% endif %}
+
+<div class="news-list">
+  {% if articles %}
+    {% for a in articles %}
+    <article class="news-card">
+      {% if a.images %}
+        <img src="{{ a.images[0].url }}" alt="{{ a.headline }}" class="news-img">
+      {% endif %}
+      <div class="news-body">
+        <h2 class="news-title">{{ a.headline }}</h2>
+        {% if a.description %}
+          <p class="news-desc">{{ a.description }}</p>
+        {% endif %}
+        <div class="news-meta">
+          {% if a.published %}
+            <span class="news-date">{{ a.published[:10] }}</span>
+          {% endif %}
+          {% if a.links and a.links.web %}
+            <a href="{{ a.links.web.href }}" target="_blank" rel="noopener" class="news-link">Leia mais →</a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  {% else %}
+    <p class="stats-empty" style="padding:32px;text-align:center;">
+      Nenhuma notícia disponível no momento.
+    </p>
+  {% endif %}
+</div>
+
+{% endblock %}

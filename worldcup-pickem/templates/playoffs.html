@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "macros.html" import match_card %}
+
+{% block conteudo %}
+
+<p class="playoff-info">
+  Os confrontos são definidos automaticamente conforme os times avançam na fase de grupos.
+</p>
+
+{% for fase in fase_order %}
+  {% if fase in fases %}
+  {% set fase_data = fases[fase] %}
+  <section class="grupo fase-{{ fase }}">
+    <h2>{{ fase_data.label }}</h2>
+    {% for match in fase_data.matches %}
+      {{ match_card(match, show_cidade=True) }}
+    {% endfor %}
+  </section>
+  {% endif %}
+{% endfor %}
+
+{% endblock %}

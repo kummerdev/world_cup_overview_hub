@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<div class="standings-grid">
+{% for grupo, teams in standings.items() %}
+<section class="standing-group">
+  <h2>Grupo {{ grupo }}</h2>
+  <table class="standing-table">
+    <thead>
+      <tr>
+        <th class="col-pos">#</th>
+        <th class="col-team">Seleção</th>
+        <th title="Jogos">J</th>
+        <th title="Vitórias">V</th>
+        <th title="Empates">E</th>
+        <th title="Derrotas">D</th>
+        <th title="Gols Marcados">GM</th>
+        <th title="Gols Sofridos">GS</th>
+        <th title="Saldo de Gols">SG</th>
+        <th title="Pontos" class="col-pts">Pts</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in teams %}
+      {% set pos = loop.index %}
+      <tr class="{% if pos <= 2 %}classifica{% endif %} {% if pos == 3 %}terceiro{% endif %}">
+        <td class="col-pos">
+          <span class="pos-badge pos-{{ pos }}">{{ pos }}</span>
+        </td>
+        <td class="col-team">{{ t.name | flag }}</td>
+        <td>{{ t.mp }}</td>
+        <td>{{ t.w }}</td>
+        <td>{{ t.d }}</td>
+        <td>{{ t.l }}</td>
+        <td>{{ t.gf }}</td>
+        <td>{{ t.ga }}</td>
+        <td class="{% if t.gd > 0 %}gd-pos{% elif t.gd < 0 %}gd-neg{% endif %}">
+          {% if t.gd > 0 %}+{% endif %}{{ t.gd }}
+        </td>
+        <td class="col-pts"><strong>{{ t.pts }}</strong></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+</div>
+
+<div class="standing-legenda">
+  <span class="legend-dot classifica-dot"></span> Avança (1º e 2º)
+  &nbsp;&nbsp;
+  <span class="legend-dot terceiro-dot"></span> Pode avançar (3º)
+</div>
+
+{% endblock %}

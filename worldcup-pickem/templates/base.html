@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Copa do Mundo 2026</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <h1 class="header-title">
+        <img src="{{ url_for('static', filename='fifa-world-cup-2026--white.9ba8a004.png') }}" alt="FIFA World Cup 2026" class="header-logo">
+        <div class="header-text">
+          <span class="header-label">FIFA World Cup</span>
+          <span class="header-main">Copa do Mundo <span class="header-year">2026</span></span>
+        </div>
+      </h1>
+
+      <div class="header-hosts">
+        <div class="host-item">
+          <img src="https://flagcdn.com/w40/ca.png" alt="Canada" class="host-flag">
+          <span>Canada</span>
+        </div>
+        <span class="host-sep">&middot;</span>
+        <div class="host-item">
+          <img src="https://flagcdn.com/w40/us.png" alt="USA" class="host-flag">
+          <span>USA</span>
+        </div>
+        <span class="host-sep">&middot;</span>
+        <div class="host-item">
+          <img src="https://flagcdn.com/w40/mx.png" alt="Mexico" class="host-flag">
+          <span>Mexico</span>
+        </div>
+      </div>
+
+      <p class="header-stats">48 seleções &nbsp;&middot;&nbsp; 104 jogos &nbsp;&middot;&nbsp; 16 cidades anfitriãs</p>
+    </div>
+
+    <nav class="nav-tabs">
+      <a href="{{ url_for('index') }}"          class="tab {% if active_tab == 'grupos' %}active{% endif %}">Fase de Grupos</a>
+      <a href="{{ url_for('classificacao') }}"  class="tab {% if active_tab == 'classificacao' %}active{% endif %}">Classificação</a>
+      <a href="{{ url_for('playoffs') }}"       class="tab {% if active_tab == 'playoffs' %}active{% endif %}">Mata-Mata</a>
+      <a href="{{ url_for('calendario') }}"     class="tab {% if active_tab == 'calendario' %}active{% endif %}">Calendário</a>
+      <a href="{{ url_for('noticias') }}"        class="tab {% if active_tab == 'noticias' %}active{% endif %}">Notícias</a>
+    </nav>
+  </header>
+
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for categoria, msg in messages %}
+          <div class="alerta alerta-{{ categoria }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block conteudo %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>Copa do Mundo 2026 · Pick'em pessoal</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

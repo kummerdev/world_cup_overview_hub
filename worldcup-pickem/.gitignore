@@ -1,0 +1,25 @@
+# Environment / secrets — never commit
+.env
+.env.*
+*.env
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# Scratch / temp scripts
+enrich.py
+_check.py

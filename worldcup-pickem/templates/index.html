@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% from "macros.html" import match_card %}
+
+{% block conteudo %}
+
+<div class="grupos-grid">
+{% for grupo, jogos in grupos.items() %}
+<section class="grupo">
+  <h2>Grupo {{ grupo }}</h2>
+  {% for match in jogos %}
+    {{ match_card(match) }}
+  {% endfor %}
+</section>
+{% endfor %}
+</div>
+
+{% endblock %}

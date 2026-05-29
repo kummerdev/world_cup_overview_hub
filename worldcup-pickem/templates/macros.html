@@ -1,0 +1,43 @@
+{% macro match_card(match, show_cidade=False) %}
+{% set teams_known = match.home is not none and match.away is not none %}
+{% set finished    = match.home_score is not none %}
+
+<div class="jogo {% if not teams_known %}jogo-pendente{% endif %} {% if finished %}jogo-finalizado{% endif %}"
+     data-home="{{ match.home or '' }}"
+     data-away="{{ match.away or '' }}">
+
+  <div class="jogo-header">
+    <span class="data">{{ match.data }} · {{ match.hora }} <span class="tz">{{ match.timezone }}</span></span>
+    {% if show_cidade %}
+      <span class="estadio-label">{{ match.estadio }} · {{ match.cidade }}</span>
+    {% endif %}
+  </div>
+
+  <div class="jogo-times">
+    <span class="time time-home {% if not teams_known %}time-placeholder{% endif %}">
+      {{ match.home_display | flag }}
+    </span>
+
+    <div class="placar-centro" id="placar-{{ match.id }}">
+      {% if finished %}
+        <span class="resultado-oficial">
+          {{ match.home_score }} <span class="placar-sep">&ndash;</span> {{ match.away_score }}
+        </span>
+      {% else %}
+        <span class="vs">VS</span>
+      {% endif %}
+    </div>
+
+    <span class="time time-away {% if not teams_known %}time-placeholder{% endif %}">
+      {{ match.away_display | flag }}
+    </span>
+  </div>
+
+  {% if not show_cidade and match.estadio %}
+    <div class="jogo-footer">
+      <span class="estadio-label">{{ match.estadio }} · {{ match.cidade }}</span>
+    </div>
+  {% endif %}
+
+</div>
+{% endmacro %}

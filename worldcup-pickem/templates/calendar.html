@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+<section class="calendario">
+  {% for date in sorted_dates %}
+  <div class="cal-dia">
+    <h3 class="cal-data">{{ date }}</h3>
+    {% for match in by_date[date] %}
+    <div class="cal-jogo">
+      <span class="cal-hora">{{ match.hora }} {{ match.timezone }}</span>
+      <span class="cal-times">
+        <strong>{{ match.home_display | flag }}</strong>
+        {% if match.home_score is not none %}
+          <span class="cal-placar">{{ match.home_score }}&ndash;{{ match.away_score }}</span>
+        {% else %}
+          <span class="cal-vs">vs</span>
+        {% endif %}
+        <strong>{{ match.away_display | flag }}</strong>
+      </span>
+      <span class="cal-cidade">{{ match.cidade }}</span>
+      <span class="cal-fase-badge fase-badge-{{ match.fase }}">{{ FASE_LABELS[match.fase] }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
