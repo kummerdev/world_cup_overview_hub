@@ -1,5 +1,7 @@
 # Copa do Mundo 2026 — Tracker
 
+A Personal Learning Project,Used for help me watch and keep track off the 2026 world cup,Created Using Claude as the Main Helping Agent
+
 A live **FIFA World Cup 2026** tracker built with Flask and the free ESPN public API. Scores update automatically — no API key, no manual entry required.
 
 ---
