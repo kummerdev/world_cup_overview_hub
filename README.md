@@ -24,7 +24,7 @@ In resume this project is live **FIFA World Cup 2026** tracker built with Flask 
 | Layer | Tech |
 |---|---|
 | Backend | Python 3 · Flask |
-| Data source | [ESPN Public API](https://site.api.espn.com) — free, no key |
+| Data source | [ESPN Public API](https://espnapi.com/) — free, no key |
 | Frontend | Vanilla JS · CSS (dark theme) |
 | Storage | JSON flat files (no database) |
 
