@@ -109,6 +109,11 @@ def get_leaders() -> dict:
     return _get(url)
 
 
+def resolve_ref(ref_url: str) -> dict:
+    """Fetch any ESPN $ref URL directly (used for leaders athlete resolution)."""
+    return _get(ref_url)
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def extract_competitors(event: dict) -> tuple[dict, dict]:

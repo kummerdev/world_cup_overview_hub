@@ -10,32 +10,18 @@
 
   <header>
     <div class="header-inner">
-      <h1 class="header-title">
+      <a href="{{ url_for('index') }}" class="header-brand">
         <img src="{{ url_for('static', filename='fifa-world-cup-2026--white.9ba8a004.png') }}" alt="FIFA World Cup 2026" class="header-logo">
         <div class="header-text">
-          <span class="header-label">FIFA World Cup</span>
           <span class="header-main">Copa do Mundo <span class="header-year">2026</span></span>
+          <span class="header-label">FIFA World Cup</span>
         </div>
-      </h1>
-
+      </a>
       <div class="header-hosts">
-        <div class="host-item">
-          <img src="https://flagcdn.com/w40/ca.png" alt="Canada" class="host-flag">
-          <span>Canada</span>
-        </div>
-        <span class="host-sep">&middot;</span>
-        <div class="host-item">
-          <img src="https://flagcdn.com/w40/us.png" alt="USA" class="host-flag">
-          <span>USA</span>
-        </div>
-        <span class="host-sep">&middot;</span>
-        <div class="host-item">
-          <img src="https://flagcdn.com/w40/mx.png" alt="Mexico" class="host-flag">
-          <span>Mexico</span>
-        </div>
+        <img src="https://flagcdn.com/w20/ca.png" alt="Canada"  class="host-flag-mini" title="Canada">
+        <img src="https://flagcdn.com/w20/us.png" alt="USA"     class="host-flag-mini" title="USA">
+        <img src="https://flagcdn.com/w20/mx.png" alt="Mexico"  class="host-flag-mini" title="Mexico">
       </div>
-
-      <p class="header-stats">48 seleções &nbsp;&middot;&nbsp; 104 jogos &nbsp;&middot;&nbsp; 16 cidades anfitriãs</p>
     </div>
 
     <nav class="nav-tabs">
@@ -43,7 +29,8 @@
       <a href="{{ url_for('classificacao') }}"  class="tab {% if active_tab == 'classificacao' %}active{% endif %}">Classificação</a>
       <a href="{{ url_for('playoffs') }}"       class="tab {% if active_tab == 'playoffs' %}active{% endif %}">Mata-Mata</a>
       <a href="{{ url_for('calendario') }}"     class="tab {% if active_tab == 'calendario' %}active{% endif %}">Calendário</a>
-      <a href="{{ url_for('noticias') }}"        class="tab {% if active_tab == 'noticias' %}active{% endif %}">Notícias</a>
+      <a href="{{ url_for('artilheiros') }}"    class="tab {% if active_tab == 'artilheiros' %}active{% endif %}">Artilheiros</a>
+      <a href="{{ url_for('noticias') }}"       class="tab {% if active_tab == 'noticias' %}active{% endif %}">Notícias</a>
     </nav>
   </header>
 

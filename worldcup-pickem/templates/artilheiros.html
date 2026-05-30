@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+{% if categories %}
+  <div class="artilheiros-grid">
+    {% for cat in categories %}
+    <div class="artilheiros-section">
+      <h2>{{ cat.name }}</h2>
+      <table class="artilheiros-table">
+        <tbody>
+          {% for entry in cat.leaders %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+              <div class="scorer-player">
+                {% if entry.headshot %}
+                  <img src="{{ entry.headshot }}" class="scorer-photo" alt="{{ entry.name }}"
+                       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                  <span class="scorer-photo-placeholder" style="display:none">&#128100;</span>
+                {% else %}
+                  <span class="scorer-photo-placeholder">&#128100;</span>
+                {% endif %}
+                <div>
+                  <div class="scorer-name">{{ entry.name }}</div>
+                  {% if entry.team %}
+                    <div class="scorer-team">{{ entry.team | flag }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </td>
+            <td class="scorer-value">{{ entry.value }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon">&#9917;</div>
+    <p>
+      As estatísticas de artilharia estarão disponíveis<br>
+      após o início do torneio em <strong>11 de junho de 2026</strong>.
+    </p>
+  </div>
+{% endif %}
+
+{% endblock %}

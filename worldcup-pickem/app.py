@@ -3,6 +3,7 @@ from markupsafe import Markup
 import json
 import os
 import re
+import time
 import worldcup_api as wc_api
 
 app = Flask(__name__)
@@ -83,6 +84,7 @@ FLAGS = {
 def flag_filter(name):
     if not name:
         return name
+    name = wc_api.normalize(name)
     code = FLAGS.get(name)
     if not code:
         return Markup(name)
@@ -267,6 +269,58 @@ def calcular_classificacao(group_matches):
     return result
 
 
+# ── Leaders cache ─────────────────────────────────────────────────────────────
+
+_athlete_cache: dict = {}
+_leaders_cache: dict = {'data': None, 'ts': 0.0}
+
+
+def _resolve_athlete(ref_url: str) -> dict:
+    if ref_url not in _athlete_cache:
+        try:
+            _athlete_cache[ref_url] = wc_api.resolve_ref(ref_url)
+        except Exception:
+            _athlete_cache[ref_url] = {}
+    return _athlete_cache[ref_url]
+
+
+def _get_leaders_data():
+    now = time.time()
+    if _leaders_cache['data'] is not None and now - _leaders_cache['ts'] < 600:
+        return _leaders_cache['data']
+
+    try:
+        raw = wc_api.get_leaders()
+    except Exception:
+        _leaders_cache.update({'data': [], 'ts': now})
+        return []
+
+    categories = []
+    for cat in raw.get('items', []):
+        cat_name = cat.get('displayName') or cat.get('name', '')
+        leaders = []
+        for entry in cat.get('leaders', [])[:10]:
+            ath_raw = entry.get('athlete', {})
+            value   = entry.get('displayValue', '0')
+
+            if isinstance(ath_raw, dict) and '$ref' in ath_raw:
+                ath = _resolve_athlete(ath_raw['$ref'])
+            else:
+                ath = ath_raw or {}
+
+            name     = ath.get('displayName', '?')
+            headshot = (ath.get('headshot') or {}).get('href', '')
+            team     = wc_api.normalize(ath.get('citizenship', '') or '')
+            leaders.append({'name': name, 'value': value,
+                            'headshot': headshot, 'team': team})
+
+        if leaders and any(e['name'] != '?' for e in leaders):
+            categories.append({'name': cat_name, 'leaders': leaders})
+
+    _leaders_cache.update({'data': categories, 'ts': now})
+    return categories
+
+
 # ── ESPN auto-sync ────────────────────────────────────────────────────────────
 
 def _sync_today_silent():
@@ -411,6 +465,14 @@ def livescores_json():
             'period':     status.get('period', 1),             # 1 or 2
         })
     return jsonify(scores)
+
+
+
+@app.route('/artilheiros')
+def artilheiros():
+    categories = _get_leaders_data()
+    return render_template('artilheiros.html', categories=categories,
+                           active_tab='artilheiros')
 
 
 @app.route('/noticias')
