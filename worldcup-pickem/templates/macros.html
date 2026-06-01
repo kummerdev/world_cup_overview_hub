@@ -7,7 +7,7 @@
      data-away="{{ match.away or '' }}">
 
   <div class="jogo-header">
-    <span class="data">{{ match.data }} · {{ match.hora }} <span class="tz">{{ match.timezone }}</span></span>
+    <span class="data">{{ match.data }} · <span class="match-time-block" data-hora="{{ match.hora }}" data-utctz="{{ match.timezone }}" data-date="{{ match.data }}"><span class="hora-val">{{ match.hora }}</span> <span class="tz tz-val">{{ match.timezone }}</span></span></span>
     {% if show_cidade %}
       <span class="estadio-label">{{ match.estadio }} · {{ match.cidade }}</span>
     {% endif %}

@@ -5,20 +5,20 @@
 <div class="standings-grid">
 {% for grupo, teams in standings.items() %}
 <section class="standing-group">
-  <h2>Grupo {{ grupo }}</h2>
+  <h2><span data-i18n="label-group">Grupo</span> {{ grupo }}</h2>
   <table class="standing-table">
     <thead>
       <tr>
         <th class="col-pos">#</th>
-        <th class="col-team">Seleção</th>
-        <th title="Jogos">J</th>
-        <th title="Vitórias">V</th>
-        <th title="Empates">E</th>
-        <th title="Derrotas">D</th>
-        <th title="Gols Marcados">GM</th>
-        <th title="Gols Sofridos">GS</th>
-        <th title="Saldo de Gols">SG</th>
-        <th title="Pontos" class="col-pts">Pts</th>
+        <th class="col-team" data-i18n="th-team">Seleção</th>
+        <th data-i18n="th-mp" data-i18n-title="th-mp-title" title="Jogos">J</th>
+        <th data-i18n="th-w"  data-i18n-title="th-w-title"  title="Vitórias">V</th>
+        <th data-i18n="th-d"  data-i18n-title="th-d-title"  title="Empates">E</th>
+        <th data-i18n="th-l"  data-i18n-title="th-l-title"  title="Derrotas">D</th>
+        <th data-i18n="th-gf" data-i18n-title="th-gf-title" title="Gols Marcados">GM</th>
+        <th data-i18n="th-ga" data-i18n-title="th-ga-title" title="Gols Sofridos">GS</th>
+        <th data-i18n="th-gd" data-i18n-title="th-gd-title" title="Saldo de Gols">SG</th>
+        <th data-i18n="th-pts" class="col-pts">Pts</th>
       </tr>
     </thead>
     <tbody>
@@ -48,9 +48,9 @@
 </div>
 
 <div class="standing-legenda">
-  <span class="legend-dot classifica-dot"></span> Avança (1º e 2º)
+  <span class="legend-dot classifica-dot"></span> <span data-i18n="legend-advance">Avança (1º e 2º)</span>
   &nbsp;&nbsp;
-  <span class="legend-dot terceiro-dot"></span> Pode avançar (3º)
+  <span class="legend-dot terceiro-dot"></span> <span data-i18n="legend-third">Pode avançar (3º)</span>
 </div>
 
 {% endblock %}

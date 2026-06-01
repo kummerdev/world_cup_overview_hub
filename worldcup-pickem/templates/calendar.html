@@ -8,7 +8,7 @@
     <h3 class="cal-data">{{ date }}</h3>
     {% for match in by_date[date] %}
     <div class="cal-jogo">
-      <span class="cal-hora">{{ match.hora }} {{ match.timezone }}</span>
+      <span class="cal-hora match-time-block" data-hora="{{ match.hora }}" data-utctz="{{ match.timezone }}" data-date="{{ match.data }}"><span class="hora-val">{{ match.hora }}</span> <span class="tz-val">{{ match.timezone }}</span></span>
       <span class="cal-times">
         <strong>{{ match.home_display | flag }}</strong>
         {% if match.home_score is not none %}
@@ -19,7 +19,7 @@
         <strong>{{ match.away_display | flag }}</strong>
       </span>
       <span class="cal-cidade">{{ match.cidade }}</span>
-      <span class="cal-fase-badge fase-badge-{{ match.fase }}">{{ FASE_LABELS[match.fase] }}</span>
+      <span class="cal-fase-badge fase-badge-{{ match.fase }}" data-i18n="phase-{{ match.fase }}">{{ FASE_LABELS[match.fase] }}</span>
     </div>
     {% endfor %}
   </div>

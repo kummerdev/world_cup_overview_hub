@@ -86,10 +86,11 @@ def flag_filter(name):
         return name
     name = wc_api.normalize(name)
     code = FLAGS.get(name)
+    name_span = f'<span class="country-name" data-en="{name}">{name}</span>'
     if not code:
-        return Markup(name)
+        return Markup(name_span)
     img = f'<img src="https://flagcdn.com/w20/{code}.png" class="flag-img" alt="{name}">'
-    return Markup(f'{img} {name}')
+    return Markup(f'{img} {name_span}')
 
 
 def load_json(filepath):

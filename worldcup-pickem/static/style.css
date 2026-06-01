@@ -83,6 +83,44 @@ header {
 
 .host-flag-mini:hover { opacity: 1; }
 
+/* ── Header right (flags + lang switcher) ── */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Language switcher ── */
+.lang-switcher {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.lang-btn:hover {
+  border-color: rgba(245,197,24,0.5);
+  color: #f5c518;
+}
+
+.lang-btn.active {
+  background: rgba(245,197,24,0.15);
+  border-color: #f5c518;
+  color: #f5c518;
+}
+
 /* ── Flag images ── */
 .flag-img {
   width: 24px;

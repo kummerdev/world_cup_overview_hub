@@ -3,7 +3,7 @@
 
 {% block conteudo %}
 
-<p class="playoff-info">
+<p class="playoff-info" data-i18n="playoff-info">
   Os confrontos são definidos automaticamente conforme os times avançam na fase de grupos.
 </p>
 
@@ -11,7 +11,7 @@
   {% if fase in fases %}
   {% set fase_data = fases[fase] %}
   <section class="grupo fase-{{ fase }}">
-    <h2>{{ fase_data.label }}</h2>
+    <h2 data-i18n="phase-{{ fase }}">{{ fase_data.label }}</h2>
     {% for match in fase_data.matches %}
       {{ match_card(match, show_cidade=True) }}
     {% endfor %}

@@ -17,20 +17,28 @@
           <span class="header-label">FIFA World Cup</span>
         </div>
       </a>
-      <div class="header-hosts">
-        <img src="https://flagcdn.com/w20/ca.png" alt="Canada"  class="host-flag-mini" title="Canada">
-        <img src="https://flagcdn.com/w20/us.png" alt="USA"     class="host-flag-mini" title="USA">
-        <img src="https://flagcdn.com/w20/mx.png" alt="Mexico"  class="host-flag-mini" title="Mexico">
+      <div class="header-right">
+        <div class="header-hosts">
+          <img src="https://flagcdn.com/w20/ca.png" alt="Canada"  class="host-flag-mini" title="Canada">
+          <img src="https://flagcdn.com/w20/us.png" alt="USA"     class="host-flag-mini" title="USA">
+          <img src="https://flagcdn.com/w20/mx.png" alt="Mexico"  class="host-flag-mini" title="Mexico">
+        </div>
+        <div class="lang-switcher">
+          <button class="lang-btn" data-lang="pt">PT</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="es">ES</button>
+        </div>
       </div>
+
     </div>
 
     <nav class="nav-tabs">
-      <a href="{{ url_for('index') }}"          class="tab {% if active_tab == 'grupos' %}active{% endif %}">Fase de Grupos</a>
-      <a href="{{ url_for('classificacao') }}"  class="tab {% if active_tab == 'classificacao' %}active{% endif %}">Classificação</a>
-      <a href="{{ url_for('playoffs') }}"       class="tab {% if active_tab == 'playoffs' %}active{% endif %}">Mata-Mata</a>
-      <a href="{{ url_for('calendario') }}"     class="tab {% if active_tab == 'calendario' %}active{% endif %}">Calendário</a>
-      <a href="{{ url_for('artilheiros') }}"    class="tab {% if active_tab == 'artilheiros' %}active{% endif %}">Artilheiros</a>
-      <a href="{{ url_for('noticias') }}"       class="tab {% if active_tab == 'noticias' %}active{% endif %}">Notícias</a>
+      <a href="{{ url_for('index') }}"          class="tab {% if active_tab == 'grupos' %}active{% endif %}"         data-i18n="nav-grupos">Fase de Grupos</a>
+      <a href="{{ url_for('classificacao') }}"  class="tab {% if active_tab == 'classificacao' %}active{% endif %}"  data-i18n="nav-classificacao">Classificação</a>
+      <a href="{{ url_for('playoffs') }}"       class="tab {% if active_tab == 'playoffs' %}active{% endif %}"       data-i18n="nav-playoffs">Mata-Mata</a>
+      <a href="{{ url_for('calendario') }}"     class="tab {% if active_tab == 'calendario' %}active{% endif %}"     data-i18n="nav-calendario">Calendário</a>
+      <a href="{{ url_for('artilheiros') }}"    class="tab {% if active_tab == 'artilheiros' %}active{% endif %}"    data-i18n="nav-artilheiros">Artilheiros</a>
+      <a href="{{ url_for('noticias') }}"       class="tab {% if active_tab == 'noticias' %}active{% endif %}"       data-i18n="nav-noticias">Notícias</a>
     </nav>
   </header>
 
@@ -47,7 +55,7 @@
   </main>
 
   <footer>
-    <p>Copa do Mundo 2026 · Pick'em pessoal</p>
+    <p data-i18n="footer-text">Copa do Mundo 2026 · Pick'em pessoal</p>
   </footer>
 
   <script src="{{ url_for('static', filename='app.js') }}"></script>
