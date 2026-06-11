@@ -298,11 +298,13 @@ main {
   50%       { opacity: 0.4; }
 }
 
-.live-score {
+.resultado-oficial.live-score {
   background: #4a1010;
   color: #ff6b6b;
   font-size: 1.25rem;
 }
+
+.resultado-oficial.live-score .placar-sep { color: #c0392b; }
 
 .live-min {
   display: block;
