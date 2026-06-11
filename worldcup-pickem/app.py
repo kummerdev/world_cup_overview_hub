@@ -350,7 +350,7 @@ def _sync_today_silent():
     updated  = 0
 
     for ev in all_events:
-        if not wc_api.is_finished(ev):
+        if not wc_api.is_finished(ev) and not wc_api.is_live(ev):
             continue
         home_c, away_c = wc_api.extract_competitors(ev)
         home = wc_api.extract_team_name(home_c)

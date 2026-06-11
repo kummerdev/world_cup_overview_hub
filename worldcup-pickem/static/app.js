@@ -69,7 +69,7 @@ const UI_STRINGS = {
     'th-pts':             'Pts',
     'live-badge':         '● AO VIVO',
     'playoff-info':       'Os confrontos são definidos automaticamente conforme os times avançam na fase de grupos.',
-    'artilheiros-empty':  'As estatísticas de artilharia estarão disponíveis após o início do torneio em <strong>11 de junho de 2026</strong>.',
+    'artilheiros-empty':  'As estatísticas de artilharia estarão disponíveis em breve.',
     'legend-advance':     'Avança (1º e 2º)',
     'legend-third':       'Pode avançar (3º)',
   },
@@ -100,7 +100,7 @@ const UI_STRINGS = {
     'th-pts':             'Pts',
     'live-badge':         '● LIVE',
     'playoff-info':       'Matchups are determined automatically as teams advance through the group stage.',
-    'artilheiros-empty':  'Scoring statistics will be available after the tournament starts on <strong>June 11, 2026</strong>.',
+    'artilheiros-empty':  'Scoring statistics will be available shortly.',
     'legend-advance':     'Advances (1st and 2nd)',
     'legend-third':       'May advance (3rd)',
   },
@@ -131,7 +131,7 @@ const UI_STRINGS = {
     'th-pts':             'Pts',
     'live-badge':         '● EN VIVO',
     'playoff-info':       'Los cruces se determinan automáticamente conforme los equipos avanzan en la fase de grupos.',
-    'artilheiros-empty':  'Las estadísticas de goles estarán disponibles después del inicio del torneo el <strong>11 de junio de 2026</strong>.',
+    'artilheiros-empty':  'Las estadísticas de goles estarán disponibles en breve.',
     'legend-advance':     'Avanza (1.º y 2.º)',
     'legend-third':       'Puede avanzar (3.º)',
   },
@@ -211,7 +211,7 @@ function applyLanguage(lang) {
    Updates match cards in place — no full page reload needed.
    ─────────────────────────────────────────────────────────────────────────── */
 
-const POLL_INTERVAL = 45_000;
+const POLL_INTERVAL = 20_000;
 
 function buildScoreHTML(hs, as_, detail) {
   const min = detail ? `<span class="live-min">${detail}</span>` : '';
