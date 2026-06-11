@@ -243,7 +243,7 @@ function applyLiveScores(games) {
       if (!card.querySelector('.live-badge')) {
         const badge = document.createElement('span');
         badge.className = 'live-badge';
-        // use current language for live badge text
+        badge.dataset.i18n = 'live-badge';
         const lang = localStorage.getItem('wcp-lang') || 'pt';
         badge.textContent = (UI_STRINGS[lang] || UI_STRINGS.pt)['live-badge'];
         card.querySelector('.jogo-header').appendChild(badge);

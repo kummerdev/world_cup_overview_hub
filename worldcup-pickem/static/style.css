@@ -290,12 +290,6 @@ main {
   border-radius: 20px;
   letter-spacing: 0.5px;
   margin-left: auto;
-  animation: badge-blink 1.2s step-start infinite;
-}
-
-@keyframes badge-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
 }
 
 .resultado-oficial.live-score {
