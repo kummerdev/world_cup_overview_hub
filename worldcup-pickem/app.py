@@ -296,22 +296,41 @@ def _get_leaders_data():
         _leaders_cache.update({'data': [], 'ts': now})
         return []
 
+    # ESPN returns some categories twice: once verbose ("Matches: 1, Goals: 2")
+    # and once with a plain number ("2"). Skip the verbose ones; deduplicate by name.
+    seen_cat_names: set = set()
     categories = []
-    for cat in raw.get('items', []):
+    for cat in raw.get('categories', []):
         cat_name = cat.get('displayName') or cat.get('name', '')
+        first_val = (cat.get('leaders') or [{}])[0].get('displayValue', '')
+        if 'Matches:' in first_val:   # verbose duplicate — skip
+            continue
+        if cat_name in seen_cat_names:
+            continue
+        seen_cat_names.add(cat_name)
+
         leaders = []
         for entry in cat.get('leaders', [])[:10]:
-            ath_raw = entry.get('athlete', {})
-            value   = entry.get('displayValue', '0')
+            ath_raw  = entry.get('athlete', {})
+            team_raw = entry.get('team', {})
+            value    = entry.get('displayValue', '0')
 
             if isinstance(ath_raw, dict) and '$ref' in ath_raw:
                 ath = _resolve_athlete(ath_raw['$ref'])
             else:
                 ath = ath_raw or {}
 
+            # Prefer team.$ref for country name; fall back to athlete citizenship
+            if isinstance(team_raw, dict) and '$ref' in team_raw:
+                team_data = _resolve_athlete(team_raw['$ref'])  # reuse same cache
+                team = wc_api.normalize(team_data.get('name', '') or
+                                        team_data.get('displayName', '') or
+                                        ath.get('citizenship', '') or '')
+            else:
+                team = wc_api.normalize(ath.get('citizenship', '') or '')
+
             name     = ath.get('displayName', '?')
             headshot = (ath.get('headshot') or {}).get('href', '')
-            team     = wc_api.normalize(ath.get('citizenship', '') or '')
             leaders.append({'name': name, 'value': value,
                             'headshot': headshot, 'team': team})
 

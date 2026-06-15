@@ -108,8 +108,8 @@ def get_news(limit: int = 15) -> dict:
 # ── Statistical leaders ───────────────────────────────────────────────────────
 
 def get_leaders() -> dict:
-    """Top scorers and statistical leaders."""
-    url = f"{CORE}/v2/sports/{SPORT}/leagues/{LEAGUE}/leaders"
+    """Top scorers and statistical leaders for WC 2026."""
+    url = f"{CORE}/v2/sports/{SPORT}/leagues/{LEAGUE}/seasons/2026/types/1/leaders"
     return _get(url)
 
 
