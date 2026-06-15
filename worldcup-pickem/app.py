@@ -324,19 +324,12 @@ def _get_leaders_data():
 
 # ── ESPN auto-sync ────────────────────────────────────────────────────────────
 
-_sync_full_done_date = None   # tracks when the last catch-up sweep ran
-
-
 def _sync_today_silent():
     """
-    Silently pull ESPN results and update matches.json.
-
-    Once per calendar day: sweeps every past date that still has unsynced
-    matches (catches games missed by previous runs).  On subsequent calls the
-    same day only yesterday + today are checked, so normal page loads stay fast.
+    Silently pull ESPN results and update matches.json on every page load.
+    Sweeps yesterday + today plus any past date that still has a null score.
     """
     from datetime import date, timedelta
-    global _sync_full_done_date
 
     today = date.today()
     if today < wc_api.WC_START or today > wc_api.WC_END:
@@ -345,21 +338,17 @@ def _sync_today_silent():
     matches  = load_json(MATCHES_FILE)
     espn_map = {m['espn_event_id']: m for m in matches if m.get('espn_event_id')}
 
-    # Build the set of dates to query
+    # Always check yesterday + today; also any past date with unsynced matches
     dates_needed: set = {today, today - timedelta(days=1)}
-
-    if _sync_full_done_date != today:
-        # First call of the day — also sweep all past dates with null scores
-        _sync_full_done_date = today
-        for m in matches:
-            if m['home_score'] is None and m.get('home'):
-                try:
-                    day, month = map(int, m['data'].split('/'))
-                    match_date = date(2026, month, day)
-                    if wc_api.WC_START <= match_date < today:
-                        dates_needed.add(match_date)
-                except Exception:
-                    pass
+    for m in matches:
+        if m['home_score'] is None and m.get('home'):
+            try:
+                day, month = map(int, m['data'].split('/'))
+                match_date = date(2026, month, day)
+                if wc_api.WC_START <= match_date < today:
+                    dates_needed.add(match_date)
+            except Exception:
+                pass
 
     all_events = []
     for d in sorted(dates_needed):
