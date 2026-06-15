@@ -324,31 +324,54 @@ def _get_leaders_data():
 
 # ── ESPN auto-sync ────────────────────────────────────────────────────────────
 
+_sync_full_done_date = None   # tracks when the last catch-up sweep ran
+
+
 def _sync_today_silent():
     """
-    Silently pull today's ESPN results and update matches.json.
-    Called automatically on each page load during the tournament.
-    Returns the number of matches updated.
+    Silently pull ESPN results and update matches.json.
+
+    Once per calendar day: sweeps every past date that still has unsynced
+    matches (catches games missed by previous runs).  On subsequent calls the
+    same day only yesterday + today are checked, so normal page loads stay fast.
     """
     from datetime import date, timedelta
+    global _sync_full_done_date
+
     today = date.today()
     if today < wc_api.WC_START or today > wc_api.WC_END:
         return 0
 
-    try:
-        dates_to_check = [today - timedelta(days=1), today]
-        all_events = []
-        for d in dates_to_check:
-            if wc_api.WC_START <= d <= wc_api.WC_END:
-                data = wc_api.get_scoreboard(d.strftime('%Y%m%d'))
-                all_events.extend(data.get('events', []))
-    except Exception:
-        return 0
-
     matches  = load_json(MATCHES_FILE)
     espn_map = {m['espn_event_id']: m for m in matches if m.get('espn_event_id')}
-    updated  = 0
 
+    # Build the set of dates to query
+    dates_needed: set = {today, today - timedelta(days=1)}
+
+    if _sync_full_done_date != today:
+        # First call of the day — also sweep all past dates with null scores
+        _sync_full_done_date = today
+        for m in matches:
+            if m['home_score'] is None and m.get('home'):
+                try:
+                    day, month = map(int, m['data'].split('/'))
+                    match_date = date(2026, month, day)
+                    if wc_api.WC_START <= match_date < today:
+                        dates_needed.add(match_date)
+                except Exception:
+                    pass
+
+    all_events = []
+    for d in sorted(dates_needed):
+        if not (wc_api.WC_START <= d <= wc_api.WC_END):
+            continue
+        try:
+            data = wc_api.get_scoreboard(d.strftime('%Y%m%d'))
+            all_events.extend(data.get('events', []))
+        except Exception:
+            pass
+
+    updated = 0
     for ev in all_events:
         if not wc_api.is_finished(ev) and not wc_api.is_live(ev):
             continue

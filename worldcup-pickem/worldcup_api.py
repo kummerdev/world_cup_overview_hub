@@ -21,12 +21,16 @@ WC_END   = date(2026, 7, 19)
 
 # ESPN may use different names for some nations
 ESPN_NAME_ALIASES = {
-    "United States":    "USA",
-    "Korea Republic":   "South Korea",
-    "IR Iran":          "Iran",
-    "Côte d'Ivoire":    "Ivory Coast",
-    "Cote d'Ivoire":    "Ivory Coast",
-    "Czechia":          "Czech Republic",
+    "United States":       "USA",
+    "Korea Republic":      "South Korea",
+    "IR Iran":             "Iran",
+    "Côte d'Ivoire":       "Ivory Coast",
+    "Cote d'Ivoire":       "Ivory Coast",
+    "Czechia":             "Czech Republic",
+    "Bosnia-Herzegovina":  "Bosnia & Herzegovina",
+    "Türkiye":             "Turkey",
+    "Curaçao":             "Curacao",
+    "Curacao":             "Curacao",
 }
 
 
